@@ -4,6 +4,9 @@ start:
     - merger
     - relayer
     - firehose
+    - substreams-tier1
+    - substreams-tier2  
+
   flags:
     advertise-chain-name: tron-mainnet
     advertise-chain-aliases: tron
@@ -22,5 +25,8 @@ start:
       --latest-block-retry-interval=10s
       --tron-endpoints=${TRON_RPC_ENDPOINT}
       --tron-api-key=${TRON_API_KEY}
-      --interval-between-fetch=0s
-
+      --interval-between-fetch=100ms
+    substreams-tier1-grpc-listen-addr: :10016
+    substreams-tier1-subrequests-endpoint: 127.0.0.1:10017
+    substreams-tier1-subrequests-plaintext: true
+    substreams-tier2-grpc-listen-addr: :10017
