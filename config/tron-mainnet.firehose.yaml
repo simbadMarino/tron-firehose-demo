@@ -1,0 +1,26 @@
+start:
+  args:
+    - reader-node
+    - merger
+    - relayer
+    - firehose
+  flags:
+    advertise-chain-name: tron-mainnet
+    advertise-chain-aliases: tron
+    advertise-block-id-encoding: hex
+    ignore-advertise-validation: true
+    common-first-streamable-block: 1321000
+    firehose-grpc-listen-addr: :8089
+    merger-time-between-store-pruning: 10s
+    reader-node-path: firetron
+    reader-node-data-dir: "{data-dir}/poller"
+    reader-node-arguments: |
+      fetch
+      {start-block-num}
+      --state-dir={node-data-dir}/state
+      --block-fetch-batch-size=1
+      --latest-block-retry-interval=10s
+      --tron-endpoints=${TRON_RPC_ENDPOINT}
+      --tron-api-key=${TRON_API_KEY}
+      --interval-between-fetch=0s
+

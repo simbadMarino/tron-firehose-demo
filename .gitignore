@@ -1,0 +1,6 @@
+.data/
+.env
+bin/
+tron-firehose-demo
+node_modules/
+.codex

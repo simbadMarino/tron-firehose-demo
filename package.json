@@ -1,0 +1,17 @@
+{
+  "name": "tron-firehose-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minimal Node.js consumer for a local TRON Firehose pipeline backed by firecore and firetron.",
+  "scripts": {
+    "stream": "node src/cli.js stream"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.0",
+    "@grpc/proto-loader": "^0.8.0",
+    "dotenv": "^17.2.3",
+    "google-proto-files": "^5.0.1",
+    "protobufjs": "^7.5.4"
+  }
+}
+
