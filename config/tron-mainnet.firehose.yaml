@@ -2,8 +2,8 @@ start:
   args:
     - reader-node
     - merger
-    - relayer
-    - firehose
+    #- relayer
+   # - firehose
     - substreams-tier1
     - substreams-tier2  
 
@@ -12,20 +12,24 @@ start:
     advertise-chain-aliases: tron
     advertise-block-id-encoding: hex
     ignore-advertise-validation: true
-    common-first-streamable-block: 1321000
-    firehose-grpc-listen-addr: :8089
+    common-first-streamable-block: 1506600
     merger-time-between-store-pruning: 10s
+    merger-prune-forked-blocks-after: 100        # default is 200 — prune forks sooner
+    common-forked-blocks-store-url: ""  
     reader-node-path: firetron
     reader-node-data-dir: "{data-dir}/poller"
     reader-node-arguments: |
       fetch
       {start-block-num}
       --state-dir={node-data-dir}/state
-      --block-fetch-batch-size=1
-      --latest-block-retry-interval=10s
+      --block-fetch-batch-size=100
+      --latest-block-retry-interval=1s
+      --max-block-fetch-duration=10s
       --tron-endpoints=${TRON_RPC_ENDPOINT}
       --tron-api-key=${TRON_API_KEY}
-      --interval-between-fetch=100ms
+      --interval-between-fetch=0ms
+      --plaintext
+      
     substreams-tier1-grpc-listen-addr: :10016
     substreams-tier1-subrequests-endpoint: 127.0.0.1:10017
     substreams-tier1-subrequests-plaintext: true

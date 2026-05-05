@@ -3,7 +3,7 @@ set -euo pipefail
 
 GO_BIN="${GO_BIN:-go}"
 FIRECORE_VERSION="${FIRECORE_VERSION:-v1.14.1}"
-FIRETRON_VERSION="${FIRETRON_VERSION:-v0.1.0}"
+FIRETRON_VERSION="${FIRETRON_VERSION:-main}"
 INSTALL_BIN_DIR="${INSTALL_BIN_DIR:-$("${GO_BIN}" env GOPATH)/bin}"
 
 build_from_source() {
@@ -13,7 +13,13 @@ build_from_source() {
   local temp_dir
 
   temp_dir="$(mktemp -d)"
-  git clone --depth 1 --branch "${version}" "https://github.com/${repo}.git" "${temp_dir}/repo"
+
+  if [[ "${version}" == "main" || "${version}" == "master" ]]; then
+    git clone --depth 1 "https://github.com/${repo}.git" "${temp_dir}/repo"
+  else
+    git clone --depth 1 --branch "${version}" "https://github.com/${repo}.git" "${temp_dir}/repo"
+  fi
+
   (
     cd "${temp_dir}/repo"
     GOBIN="${INSTALL_BIN_DIR}" "${GO_BIN}" install "${package_path}"
